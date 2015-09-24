@@ -1,0 +1,57 @@
+@font-face {
+    font-family: "ProximaNova-Light";
+    src: url("fonts/ProximaNova-Light.otf");
+}
+
+body {
+    font-family: "ProximaNova-Light";
+}
+
+#userInput {
+  font-family: "ProximaNova-Light";
+  font-size: 1.5em;
+  border: 0;
+  display: block;
+  width: 400px;
+  margin: 0 auto;
+}
+
+#userInput:focus {
+  outline: none;
+}
+
+#userInputContainer {
+  width: 405px;
+  margin: 0 auto;
+}
+
+.userInputs {
+  font-size: 1.0em;
+  transition: color 0.8s ease;
+  display: inline-block;
+  width: 135px;
+  text-align: center;
+}
+
+.userInputs:hover {
+  color: red;
+  cursor: pointer;
+}
+
+#container {
+  width: 405px;
+  margin: 14em auto 0 auto;
+}
+
+ul {
+  width: 100%
+}
+
+.tasks {
+  font-size: 1.0em;
+  list-style: none;
+}
+
+.taskDifficulty {
+  margin-left: 0.5em;
+}
