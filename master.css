@@ -7,29 +7,31 @@ body {
     font-family: "ProximaNova-Light";
 }
 
-#userInput {
+#toDo {
+  position: relative;
   font-family: "ProximaNova-Light";
   font-size: 1.5em;
   border: 0;
   display: block;
-  width: 400px;
-  margin: 0 auto;
+  width: 405px;
+  margin: 50px auto 0 auto;
+  text-align: center;
 }
 
-#userInput:focus {
+#toDo:focus {
   outline: none;
 }
 
-#userInputContainer {
-  width: 405px;
-  margin: 0 auto;
+#inputValueContainer {
+  width: 625px;
+  margin: 50px auto 0 auto;
 }
 
 .userInputs {
-  font-size: 1.0em;
-  transition: color 0.8s ease;
+  font-size: 1.5em;
+  transition: color 0.5s ease;
   display: inline-block;
-  width: 135px;
+  width: 200px;
   text-align: center;
 }
 
@@ -39,16 +41,13 @@ body {
 }
 
 #container {
-  width: 405px;
+  width: 625px;
   margin: 14em auto 0 auto;
-}
-
-ul {
-  width: 100%
 }
 
 .tasks {
   font-size: 1.0em;
+  text-align: center;
   list-style: none;
 }
 

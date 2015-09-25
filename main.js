@@ -1,25 +1,41 @@
 window.onload = function() {
-  storeInputValue();
+  createFirstInput();
+};
+
+var createFirstInput = function() {
+  var input = document.createElement("input");
+  input.setAttribute("id", "toDo");
+  input.setAttribute("autofocus", "autofocus");
+  var container = document.getElementById("container");
+  if (container) {
+    document.body.insertBefore(input, document.body.childNodes[0])
+    storeInputValue();
+  }
+  else {
+    document.body.appendChild(input);
+    storeInputValue();
+  }
 };
 
 var storeInputValue = function() {
-  var input = document.getElementById("userInput");
+  var input = document.getElementById("toDo");
   input.onkeypress = function() {
     if(event.keyCode === 13) {
       var inputValue = input.value;
-      deleteInputText();
+      deleteInputTag();
       createNewInputs(inputValue);
     }
   };
 };
 
-var deleteInputText = function() {
-  document.getElementById("userInput").remove();
+var deleteInputTag = function() {
+  document.getElementById("toDo").remove();
 };
 
 var createNewInputs = function(inputValue) {
-  var inputContainer = document.createElement("div");
-  inputContainer.setAttribute("id", "userInputContainer");
+  var inputValueContainer = document.createElement("div");
+  var container = document.getElementById("container");
+  inputValueContainer.setAttribute("id", "inputValueContainer");
   for (var i = 0; i < 3; i++) {
     var input = document.createElement("div");
     input.setAttribute("class", "userInputs");
@@ -32,10 +48,16 @@ var createNewInputs = function(inputValue) {
     else {
       input.innerHTML = "High Value";
     }
-    inputContainer.appendChild(input);
+    inputValueContainer.appendChild(input);
   }
-  document.body.appendChild(inputContainer);
-  storeOnClickValue(inputValue);
+  if (container) {
+    document.body.insertBefore(inputValueContainer, document.body.childNodes[0]);
+    storeOnClickValue(inputValue);
+  }
+  else {
+    document.body.appendChild(inputValueContainer);
+    storeOnClickValue(inputValue);
+  }
 };
 
 var storeOnClickValue = function(firstInput) {
@@ -44,26 +66,51 @@ var storeOnClickValue = function(firstInput) {
     var userInput = userInputs[i];
     userInput.onclick = function() {
       var secondInput = event.currentTarget.innerHTML;
-      deleteSecondInput();
-      appendNewInputs(firstInput, secondInput);
+      deleteSecondInput(firstInput, secondInput);
     }
   }
 };
 
-var deleteSecondInput = function() {
-  var inputContainer = document.getElementById("userInputContainer");
-  inputContainer.remove();
+var deleteSecondInput = function(firstInput, secondInput) {
+  var inputValueContainer = document.getElementById("inputValueContainer");
+  inputValueContainer.remove();
+  appendNewInputs(firstInput, secondInput);
 };
 
 var appendNewInputs = function(firstInput, secondInput) {
-  var div = document.createElement("div");
-  div.setAttribute("id", "container");
-  var ul = document.createElement("ul");
-  ul.setAttribute("id", "taskList");
-  var li = document.createElement("li");
-  li.setAttribute("class", "tasks");
-  li.innerHTML = firstInput + "<span class='taskDifficulty'>" + secondInput + "</span>";
-  ul.appendChild(li);
-  div.appendChild(ul);
-  document.body.appendChild(div);
+var container = document.getElementById("container");
+var containerLiTags = document.getElementsByClassName("tasks");
+var taskValueArray = [];
+  if (containerLiTags.length >= 5) {
+    for (var i = 0; i < containerLiTags.length; i++) {
+      var taskValue = document.getElementsByClassName("tasks")[i].lastChild.innerHTML;
+      if (taskValue === "High Value") {
+        taskValueArray.push(taskValue);
+      }
+      else {
+        containerLiTags[i].remove();
+      }
+    }
+  }
+  else if (container) {
+    var li = document.createElement("li");
+    var ul = document.getElementById("taskList");
+    li.setAttribute("class", "tasks");
+    li.innerHTML = firstInput + "<span class='taskDifficulty'>" + secondInput + "</span>";
+    ul.appendChild(li);
+    createFirstInput();
+  }
+  else {
+    var div = document.createElement("div");
+    div.setAttribute("id", "container");
+    var ul = document.createElement("ul");
+    ul.setAttribute("id", "taskList");
+    var li = document.createElement("li");
+    li.setAttribute("class", "tasks");
+    li.innerHTML = firstInput + "<span class='taskDifficulty'>" + secondInput + "</span>";
+    ul.appendChild(li);
+    div.appendChild(ul);
+    document.body.appendChild(div);
+    createFirstInput();
+  }
 };
