@@ -81,26 +81,19 @@ var deleteSecondInput = function(firstInput, secondInput) {
 var appendNewInputs = function(firstInput, secondInput) {
 var container = document.getElementById("container");
 var containerLiTags = document.getElementsByClassName("tasks");
-var taskValueArray = [];
-  if (containerLiTags.length >= 4) {
-    for (var i = 0; i < containerLiTags.length; i++) {
-      var taskValue = document.getElementsByClassName("tasks")[i].lastChild.innerHTML;
-      debugger;
-      if (taskValue === "High Value") {
-        taskValueArray.push(taskValue);
-      }
-      else {
-        containerLiTags[i].remove();
-      }
-    }
-  }
-  else if (container) {
+
+  if (container) {
     var ul = document.getElementById("taskList");
     var li = document.createElement("li");
     li.setAttribute("class", "tasks");
     li.innerHTML = firstInput + "<span class='taskDifficulty'>" + secondInput + "</span>";
     ul.appendChild(li);
-    createFirstInput();
+    if (!(containerLiTags.length >= 5)) {
+      createFirstInput();
+    }
+    else {
+      deleteUnimportantTasks();
+    }
   }
   else {
     var div = document.createElement("div");
@@ -114,5 +107,19 @@ var taskValueArray = [];
     div.appendChild(ul);
     document.body.appendChild(div);
     createFirstInput();
+  }
+};
+
+var deleteUnimportantTasks = function() {
+  var containerLiTags = document.getElementsByClassName("tasks");
+  for (var i = 0; i < containerLiTags.length; i++) {
+    var taskValue = containerLiTags[i].lastChild.innerHTML;
+    if (taskValue[0] === "H") {
+      console.log("Don't");
+    }
+    else {
+      containerLiTags[i].remove();
+      i--;
+    }
   }
 };
