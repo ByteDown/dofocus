@@ -8,7 +8,7 @@ var createFirstInput = function() {
   input.setAttribute("autofocus", "autofocus");
   var container = document.getElementById("container");
   if (container) {
-    document.body.insertBefore(input, document.body.childNodes[0])
+    document.body.insertBefore(input, container);
     storeInputValue();
   }
   else {
@@ -51,7 +51,7 @@ var createNewInputs = function(inputValue) {
     inputValueContainer.appendChild(input);
   }
   if (container) {
-    document.body.insertBefore(inputValueContainer, document.body.childNodes[0]);
+    document.body.insertBefore(inputValueContainer, container);
     storeOnClickValue(inputValue);
   }
   else {
@@ -66,7 +66,7 @@ var storeOnClickValue = function(firstInput) {
     var userInput = userInputs[i];
     userInput.onclick = function() {
       var secondInput = event.currentTarget.innerHTML;
-      deleteSecondInput(firstInput, secondInput);
+        deleteSecondInput(firstInput, secondInput);
     }
   }
 };
@@ -74,6 +74,7 @@ var storeOnClickValue = function(firstInput) {
 var deleteSecondInput = function(firstInput, secondInput) {
   var inputValueContainer = document.getElementById("inputValueContainer");
   inputValueContainer.remove();
+  var containerLiTags = document.getElementsByClassName("tasks");
   appendNewInputs(firstInput, secondInput);
 };
 
@@ -81,9 +82,10 @@ var appendNewInputs = function(firstInput, secondInput) {
 var container = document.getElementById("container");
 var containerLiTags = document.getElementsByClassName("tasks");
 var taskValueArray = [];
-  if (containerLiTags.length >= 5) {
+  if (containerLiTags.length >= 4) {
     for (var i = 0; i < containerLiTags.length; i++) {
       var taskValue = document.getElementsByClassName("tasks")[i].lastChild.innerHTML;
+      debugger;
       if (taskValue === "High Value") {
         taskValueArray.push(taskValue);
       }
@@ -93,8 +95,8 @@ var taskValueArray = [];
     }
   }
   else if (container) {
-    var li = document.createElement("li");
     var ul = document.getElementById("taskList");
+    var li = document.createElement("li");
     li.setAttribute("class", "tasks");
     li.innerHTML = firstInput + "<span class='taskDifficulty'>" + secondInput + "</span>";
     ul.appendChild(li);
