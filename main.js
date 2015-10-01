@@ -112,12 +112,24 @@ var containerLiTags = document.getElementsByClassName("tasks");
 
 var deleteUnimportantTasks = function() {
   var containerLiTags = document.getElementsByClassName("tasks");
+  var taskValueArray = [];
   for (var i = 0; i < containerLiTags.length; i++) {
     var taskValue = containerLiTags[i].lastChild.innerHTML;
-    if (taskValue[0] === "H") {
-      console.log("Don't");
+    if (taskValue[0] !== "H") {
+      containerLiTags[i].remove();
+      i--;
     }
     else {
+      taskValueArray.push(taskValue);
+    }
+  }
+  removeDuplicates(containerLiTags, taskValueArray);
+};
+
+var removeDuplicates = function(containerLiTags, taskValueArray) {
+  for (var i = 1; i < containerLiTags.length; i++) {
+    if (taskValueArray[i - 1] === taskValueArray[i]) {
+      taskValueArray.splice(i, 1);
       containerLiTags[i].remove();
       i--;
     }
