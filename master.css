@@ -10,8 +10,9 @@ body {
 #toDo {
   position: relative;
   font-family: "ProximaNova-Light";
-  font-size: 1.5em;
+  font-size: 1.2em;
   border: 0;
+  border-bottom: 1px solid #965F8A;
   display: block;
   width: 405px;
   margin: 50px auto 0 auto;
@@ -72,12 +73,13 @@ body {
 }
 
 table { 
-  width: 180px;
+  width: auto;
   margin: 100px auto 0 auto;
 }
 
 .tableData2 {
   color: #FFFFFF;
+  margin-left: 10em;
   background: red;
   height: 30px;
   width: 30px;
