@@ -6,9 +6,9 @@ var createFirstInput = function() {
   var input = document.createElement("input");
   input.setAttribute("id", "toDo");
   input.setAttribute("autofocus", "autofocus");
-  var container = document.getElementById("container");
-  if (container) {
-    document.body.insertBefore(input, container);
+  var table = document.getElementsByTagName("table")[0];
+  if (table) {
+    document.body.insertBefore(input, table);
     storeInputValue();
   }
   else {
@@ -34,24 +34,30 @@ var deleteInputTag = function() {
 
 var createNewInputs = function(inputValue) {
   var inputValueContainer = document.createElement("div");
-  var container = document.getElementById("container");
+  var table = document.getElementsByTagName("table")[0];
   inputValueContainer.setAttribute("id", "inputValueContainer");
   for (var i = 0; i < 3; i++) {
     var input = document.createElement("div");
+    var p = document.createElement("p");
     input.setAttribute("class", "userInputs");
+    p.setAttribute("class", "userInputsText")
     if (i === 0) {
-      input.innerHTML = "Low Value";
+      p.innerHTML = "LV";
+      input.setAttribute("id", "darkBlue");
     }
     else if (i === 1) {
-      input.innerHTML = "Moderate Value";
+      p.innerHTML = "MV";
+      input.setAttribute("id", "green");
     }
     else {
-      input.innerHTML = "High Value";
+      p.innerHTML = "HV";
+      input.setAttribute("id", "red");
     }
+    input.appendChild(p);
     inputValueContainer.appendChild(input);
   }
-  if (container) {
-    document.body.insertBefore(inputValueContainer, container);
+  if (table) {
+    document.body.insertBefore(inputValueContainer, table);
     storeOnClickValue(inputValue);
   }
   else {
@@ -65,7 +71,7 @@ var storeOnClickValue = function(firstInput) {
   for (var i = 0; i < userInputs.length; i++) {
     var userInput = userInputs[i];
     userInput.onclick = function() {
-      var secondInput = event.currentTarget.innerHTML;
+      var secondInput = event.currentTarget.lastChild.innerHTML;
         deleteSecondInput(firstInput, secondInput);
     }
   }
@@ -74,21 +80,36 @@ var storeOnClickValue = function(firstInput) {
 var deleteSecondInput = function(firstInput, secondInput) {
   var inputValueContainer = document.getElementById("inputValueContainer");
   inputValueContainer.remove();
-  var containerLiTags = document.getElementsByClassName("tasks");
   appendNewInputs(firstInput, secondInput);
 };
 
 var appendNewInputs = function(firstInput, secondInput) {
-var container = document.getElementById("container");
-var containerLiTags = document.getElementsByClassName("tasks");
+var tableBody = document.getElementsByTagName("tbody");
+var tableRowTags = document.getElementsByTagName("tr");
 
-  if (container) {
-    var ul = document.getElementById("taskList");
-    var li = document.createElement("li");
-    li.setAttribute("class", "tasks");
-    li.innerHTML = firstInput + "<span class='taskDifficulty'>" + secondInput + "</span>";
-    ul.appendChild(li);
-    if (!(containerLiTags.length >= 5)) {
+  if (tableBody.length) {
+    var tableRow = document.createElement("tr");
+    var tableData1 = document.createElement("td");
+    tableData1.setAttribute("class", "tableData1");
+    var tableData2 = document.createElement("td");
+    tableData2.setAttribute("class", "tableData2");
+    
+    tableData1.innerHTML = firstInput;
+    tableData2.innerHTML = secondInput;
+    if (secondInput[0] === "H") {
+      tableData2.setAttribute("id", "red");
+    }
+    else if (secondInput[0] === "M") {
+      tableData2.setAttribute("id", "green");
+    }
+    else {
+      tableData2.setAttribute("id", "darkBlue");
+    }
+    tableRow.appendChild(tableData1);
+    tableRow.appendChild(tableData2);
+    tableBody[0].appendChild(tableRow);
+
+    if (!(tableRowTags.length >= 5)) {
       createFirstInput();
     }
     else {
@@ -96,41 +117,55 @@ var containerLiTags = document.getElementsByClassName("tasks");
     }
   }
   else {
-    var div = document.createElement("div");
-    div.setAttribute("id", "container");
-    var ul = document.createElement("ul");
-    ul.setAttribute("id", "taskList");
-    var li = document.createElement("li");
-    li.setAttribute("class", "tasks");
-    li.innerHTML = firstInput + "<span class='taskDifficulty'>" + secondInput + "</span>";
-    ul.appendChild(li);
-    div.appendChild(ul);
-    document.body.appendChild(div);
+    var table = document.createElement("table");
+    var tableBody = document.createElement("tbody");
+    var tableRow = document.createElement("tr");
+    var tableData1 = document.createElement("td");
+    tableData1.setAttribute("class", "tableData1");
+    var tableData2 = document.createElement("td");
+    tableData2.setAttribute("class", "tableData2");
+    
+    tableData1.innerHTML = firstInput;
+    tableData2.innerHTML = secondInput;
+    if (secondInput[0] === "H") {
+      tableData2.setAttribute("id", "red");
+    }
+    else if (secondInput[0] === "M") {
+      tableData2.setAttribute("id", "green");
+    }
+    else {
+      tableData2.setAttribute("id", "darkBlue");
+    }
+    tableRow.appendChild(tableData1);
+    tableRow.appendChild(tableData2);
+    tableBody.appendChild(tableRow);
+    table.appendChild(tableBody);
+    document.body.appendChild(table);
     createFirstInput();
   }
 };
 
 var deleteUnimportantTasks = function() {
-  var containerLiTags = document.getElementsByClassName("tasks");
+  var tableRowTags = document.getElementsByTagName("tr");
   var taskValueArray = [];
-  for (var i = 0; i < containerLiTags.length; i++) {
-    var taskValue = containerLiTags[i].lastChild.innerHTML;
+  for (var i = 0; i < tableRowTags.length; i++) {
+    var taskValue = tableRowTags[i].lastChild.innerHTML;
     if (taskValue[0] !== "H") {
-      containerLiTags[i].remove();
+      tableRowTags[i].remove();
       i--;
     }
     else {
       taskValueArray.push(taskValue);
     }
   }
-  removeDuplicates(containerLiTags, taskValueArray);
+  removeDuplicates(tableRowTags, taskValueArray);
 };
 
-var removeDuplicates = function(containerLiTags, taskValueArray) {
-  for (var i = 1; i < containerLiTags.length; i++) {
+var removeDuplicates = function(tableRowTags, taskValueArray) {
+  for (var i = 1; i < tableRowTags.length; i++) {
     if (taskValueArray[i - 1] === taskValueArray[i]) {
       taskValueArray.splice(i, 1);
-      containerLiTags[i].remove();
+      tableRowTags[i].remove();
       i--;
     }
   }

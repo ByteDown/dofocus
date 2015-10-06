@@ -23,7 +23,7 @@ body {
 }
 
 #inputValueContainer {
-  width: 625px;
+  width: 180px;
   margin: 50px auto 0 auto;
 }
 
@@ -31,26 +31,45 @@ body {
   font-size: 1.5em;
   transition: color 0.5s ease;
   display: inline-block;
-  width: 200px;
+  background: #C1292E;
+  width: 60px;
+  height: 60px;
+}
+
+#darkBlue {
+  background: #4F5E7F;
+}
+
+#green {
+  background: #4AC6B7;
+}
+
+#red {
+  background: #FF7070;
+}
+
+.userInputsText {
+  color: white;
+  margin: 0 auto;
   text-align: center;
+  line-height: 60px;
+  vertical-align: center;
 }
 
 .userInputs:hover {
-  color: red;
+  background-color: rgba(193,41,46,0.8);
   cursor: pointer;
 }
 
-#container {
-  width: 625px;
-  margin: 14em auto 0 auto;
+table { 
+  width: 180px;
+  margin: 100px auto 0 auto;
 }
 
-.tasks {
-  font-size: 1.0em;
+.tableData2 {
+  color: #FFFFFF;
+  background: red;
+  height: 30px;
+  width: 30px;
   text-align: center;
-  list-style: none;
-}
-
-.taskDifficulty {
-  margin-left: 0.5em;
 }
