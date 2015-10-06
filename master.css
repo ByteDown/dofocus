@@ -40,12 +40,27 @@ body {
   background: #4F5E7F;
 }
 
+#darkBlue:hover {
+  cursor: pointer;
+  background: rgba(79, 94, 127, 0.8);
+}
+
 #green {
   background: #4AC6B7;
 }
 
+#green:hover {
+  cursor: pointer;
+  background: rgba(74, 198, 183, 0.8);
+}
+
 #red {
   background: #FF7070;
+}
+
+#red:hover {
+  cursor: pointer;
+  background: rgba(255, 112, 112, 0.8);
 }
 
 .userInputsText {
@@ -54,11 +69,6 @@ body {
   text-align: center;
   line-height: 60px;
   vertical-align: center;
-}
-
-.userInputs:hover {
-  background-color: rgba(193,41,46,0.8);
-  cursor: pointer;
 }
 
 table { 
