@@ -6,6 +6,7 @@ var createFirstInput = function() {
   var input = document.createElement("input");
   input.setAttribute("id", "toDo");
   input.setAttribute("autofocus", "autofocus");
+  input.placeholder = "Write your first to do item"
   var table = document.getElementsByTagName("table")[0];
   if (table) {
     document.body.insertBefore(input, table);
