@@ -7,6 +7,13 @@ body {
     font-family: "ProximaNova-Light";
 }
 
+.header-text {
+  text-align: center;
+  font-size: 1.5em;
+  font-family: "ProximaNova-Light";
+  margin-top: 3em;
+}
+
 #toDo {
   position: relative;
   font-family: "ProximaNova-Light";
